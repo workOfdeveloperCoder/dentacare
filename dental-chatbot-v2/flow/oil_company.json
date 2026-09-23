@@ -1,0 +1,340 @@
+{
+  "flow_key": "oil_company",
+  "name": "PetroServe Assistant",
+  "version": 1,
+  "status": "active",
+  "description": "Example flow: oil and lubricants quote + order tracking. Swap this file in to rebrand the chatbot.",
+  "order_prefix": "OIL",
+
+  "branding": {
+    "title": "PetroServe",
+    "subtitle": "Fuel & Lubricants",
+    "avatar": "🛢️",
+    "primary_color": "#c2410c",
+    "powered_by": "PetroServe Support",
+    "placeholder": "Ask about fuel, lubricants, or deliveries..."
+  },
+
+  "navigation": {
+    "back_enabled": true,
+    "main_menu_enabled": true,
+    "main_menu_node": "MAIN_MENU"
+  },
+
+  "summary_fields": [
+    "product",
+    "volume",
+    "region",
+    "company_name",
+    "contact_name",
+    "contact_phone",
+    "contact_email",
+    "delivery_date"
+  ],
+
+  "start_node": "MAIN_MENU",
+
+  "nodes": [
+    {
+      "key": "MAIN_MENU",
+      "type": "menu",
+      "message": "Welcome to PetroServe. How can we help your business today?",
+      "options": [
+        {
+          "key": "REQUEST_QUOTE",
+          "label": "Request a Fuel Quote",
+          "next": "SELECT_PRODUCT"
+        },
+        {
+          "key": "TRACK_ORDER",
+          "label": "Track an Order",
+          "next": "TRACK_METHOD"
+        },
+        {
+          "key": "CONTACT_TEAM",
+          "label": "Talk to Sales",
+          "next": "CONTACT_INFO"
+        }
+      ]
+    },
+
+    {
+      "key": "SELECT_PRODUCT",
+      "type": "menu",
+      "message": "Which product do you need?",
+      "input_key": "product",
+      "options": [
+        {
+          "key": "DIESEL",
+          "label": "Diesel",
+          "next": "SELECT_VOLUME"
+        },
+        {
+          "key": "PETROL",
+          "label": "Petrol / Gasoline",
+          "next": "SELECT_VOLUME"
+        },
+        {
+          "key": "FURNACE_OIL",
+          "label": "Furnace Oil",
+          "next": "SELECT_VOLUME"
+        },
+        {
+          "key": "LUBRICANTS",
+          "label": "Industrial Lubricants",
+          "next": "SELECT_VOLUME"
+        }
+      ]
+    },
+
+    {
+      "key": "SELECT_VOLUME",
+      "type": "menu",
+      "message": "What volume do you need?",
+      "input_key": "volume",
+      "options": [
+        {
+          "key": "LITERS_5000",
+          "label": "5,000 litres",
+          "next": "SELECT_REGION"
+        },
+        {
+          "key": "LITERS_15000",
+          "label": "15,000 litres",
+          "next": "SELECT_REGION"
+        },
+        {
+          "key": "LITERS_30000",
+          "label": "30,000 litres",
+          "next": "SELECT_REGION"
+        },
+        {
+          "key": "TANKER",
+          "label": "Full tanker / custom volume",
+          "next": "SELECT_REGION"
+        }
+      ]
+    },
+
+    {
+      "key": "SELECT_REGION",
+      "type": "menu",
+      "message": "Which delivery region should we use?",
+      "input_key": "region",
+      "options": [
+        {
+          "key": "KARACHI",
+          "label": "Karachi / South",
+          "next": "COMPANY_NAME"
+        },
+        {
+          "key": "LAHORE",
+          "label": "Lahore / Central",
+          "next": "COMPANY_NAME"
+        },
+        {
+          "key": "ISLAMABAD",
+          "label": "Islamabad / North",
+          "next": "COMPANY_NAME"
+        }
+      ]
+    },
+
+    {
+      "key": "COMPANY_NAME",
+      "type": "input",
+      "message": "What is your company name?",
+      "input_key": "company_name",
+      "validation_type": "text",
+      "next": "CONTACT_NAME",
+      "options": []
+    },
+
+    {
+      "key": "CONTACT_NAME",
+      "type": "input",
+      "message": "Who should we contact about this quote?",
+      "input_key": "contact_name",
+      "validation_type": "name",
+      "next": "CONTACT_PHONE",
+      "options": []
+    },
+
+    {
+      "key": "CONTACT_PHONE",
+      "type": "phone",
+      "message": "Please enter a mobile number for delivery updates.",
+      "input_key": "contact_phone",
+      "validation_type": "pakistan_mobile",
+      "next": "CONTACT_EMAIL",
+      "options": []
+    },
+
+    {
+      "key": "CONTACT_EMAIL",
+      "type": "email",
+      "message": "Please enter an email address for the quote.",
+      "input_key": "contact_email",
+      "validation_type": "email",
+      "next": "DELIVERY_DATE",
+      "options": []
+    },
+
+    {
+      "key": "DELIVERY_DATE",
+      "type": "date",
+      "message": "When do you need delivery?",
+      "input_key": "delivery_date",
+      "validation_type": "future_date",
+      "options_source": {
+        "provider": "available_dates",
+        "label_format": "%A, %d %B %Y"
+      },
+      "next": "QUOTE_CONFIRMATION",
+      "options": []
+    },
+
+    {
+      "key": "QUOTE_CONFIRMATION",
+      "type": "confirmation",
+      "message": "Please confirm this quote request:\n\n{{summary}}",
+      "input_key": "quote_confirmation",
+      "validation_type": "confirmation",
+      "next": "QUOTE_SUBMIT",
+      "options": [
+        {
+          "key": "CONFIRM",
+          "label": "Submit Quote Request",
+          "next": "QUOTE_SUBMIT"
+        },
+        {
+          "key": "EDIT",
+          "label": "Edit Details",
+          "next": "COMPANY_NAME"
+        }
+      ]
+    },
+
+    {
+      "key": "QUOTE_SUBMIT",
+      "type": "action",
+      "message": "Submitting your quote request.",
+      "action": {
+        "handler": "create_order",
+        "order_prefix": "OIL",
+        "item_type": "quote",
+        "success_message": "Your quote request is in.\n\nCompany: {{company_name}}\nProduct: {{item_name}}\nRegion: {{provider_name}}\nDelivery: {{date_label}}\n\nReference: {{order_number}}\nA sales coordinator will contact you shortly.",
+        "fields": {
+          "customer_name": "contact_name",
+          "customer_phone": "contact_phone",
+          "customer_email": "contact_email",
+          "item_key": "product",
+          "item_node": "SELECT_PRODUCT",
+          "provider_key": "region",
+          "provider_node": "SELECT_REGION",
+          "date_field": "delivery_date"
+        }
+      },
+      "next": "QUOTE_END",
+      "options": []
+    },
+
+    {
+      "key": "QUOTE_END",
+      "type": "end",
+      "message": "Thank you for choosing PetroServe. You can close this chat or return to the main menu anytime.",
+      "options": []
+    },
+
+    {
+      "key": "TRACK_METHOD",
+      "type": "menu",
+      "message": "How should we look up your order?",
+      "options": [
+        {
+          "key": "TRACK_BY_PHONE",
+          "label": "Search by Phone",
+          "next": "TRACK_PHONE"
+        },
+        {
+          "key": "TRACK_BY_EMAIL",
+          "label": "Search by Email",
+          "next": "TRACK_EMAIL"
+        }
+      ]
+    },
+
+    {
+      "key": "TRACK_PHONE",
+      "type": "phone",
+      "message": "Enter the phone number used on the order.",
+      "input_key": "track_phone",
+      "validation_type": "pakistan_mobile",
+      "on_input": {
+        "handler": "lookup_orders",
+        "by": "phone",
+        "results_node": "TRACK_RESULTS",
+        "empty_message": "I couldn't find an active order with that phone number."
+      },
+      "options": []
+    },
+
+    {
+      "key": "TRACK_EMAIL",
+      "type": "email",
+      "message": "Enter the email address used on the order.",
+      "input_key": "track_email",
+      "validation_type": "email",
+      "on_input": {
+        "handler": "lookup_orders",
+        "by": "email",
+        "results_node": "TRACK_RESULTS",
+        "empty_message": "I couldn't find an active order with that email address."
+      },
+      "options": []
+    },
+
+    {
+      "key": "TRACK_RESULTS",
+      "type": "menu",
+      "message": "I found your orders. Select one to view details.",
+      "options_source": {
+        "provider": "lookup_results",
+        "id_prefix": "ORDER_",
+        "label_template": "{order_number} | {service_name} | {date}"
+      },
+      "on_select": {
+        "handler": "show_order_details",
+        "details_node": "TRACK_DETAILS",
+        "id_prefix": "ORDER_",
+        "message_template": "Order Details\n\nCompany contact: {customer_name}\nProduct: {service_name}\nRegion: {provider_name}\nDate: {date_label}\nStatus: {status_label}\nReference: {order_number}"
+      },
+      "options": []
+    },
+
+    {
+      "key": "TRACK_DETAILS",
+      "type": "menu",
+      "message": "Here are the details of your order.",
+      "options": [
+        {
+          "key": "BACK_TO_RESULTS",
+          "label": "Back to Results",
+          "next": "TRACK_RESULTS"
+        },
+        {
+          "key": "__MAIN_MENU__",
+          "label": "Main Menu",
+          "next": "MAIN_MENU"
+        }
+      ]
+    },
+
+    {
+      "key": "CONTACT_INFO",
+      "type": "end",
+      "message": "Our sales desk is available 9:00–18:00, Monday to Saturday.\n\nCall: 021-111-738-767\nEmail: sales@petroserve.example\n\nOr request a quote from the main menu and a coordinator will call you back.",
+      "options": []
+    }
+  ]
+}
