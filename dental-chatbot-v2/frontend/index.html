@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Rahman & Rahman Dental Surgeons virtual reception"
+    >
+
+    <title>Rahman & Rahman Dental Surgeons</title>
+
+    <link
+        rel="stylesheet"
+        href="/frontend/css/chatbot.css"
+    >
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <main class="chatbot-card">
+
+        <!-- HEADER -->
+
+        <header class="chat-header">
+
+            <div class="brand-area">
+
+                <div class="brand-avatar">
+                    RR
+                </div>
+
+                <div class="brand-info">
+
+                    <div class="brand-name">
+                        Rahman & Rahman
+                    </div>
+
+                    <div class="brand-subtitle">
+                        Dental Surgeons
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="online-status">
+
+                <span class="status-dot"></span>
+
+                <span>
+                    Online
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- CHAT -->
+
+        <section
+            id="chatMessages"
+            class="chat-messages"
+            aria-live="polite"
+            aria-label="Chat conversation"
+        >
+
+            <!-- Messages are inserted here -->
+
+        </section>
+
+
+        <!-- TYPING INDICATOR -->
+
+        <div
+            id="typingIndicator"
+            class="typing-indicator hidden"
+            aria-hidden="true"
+        >
+
+            <div class="typing-avatar">
+                RR
+            </div>
+
+            <div class="typing-bubble">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUICK OPTIONS -->
+
+        <div
+            id="quickOptions"
+            class="quick-options"
+        >
+        </div>
+
+
+        <!-- INPUT -->
+
+        <footer class="chat-input-area">
+
+            <form
+                id="chatForm"
+                class="chat-form"
+            >
+
+                <input
+                    id="messageInput"
+                    type="text"
+                    autocomplete="off"
+                    placeholder="Type your message..."
+                    aria-label="Type your message"
+                >
+
+                <button
+                    id="sendButton"
+                    type="submit"
+                    aria-label="Send message"
+                >
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M22 2L11 13"
+                        ></path>
+
+                        <path
+                            d="M22 2L15 22L11 13L2 9L22 2Z"
+                        ></path>
+                    </svg>
+
+                </button>
+
+            </form>
+
+            <div class="chat-footer-note">
+                Secure conversational assistant
+            </div>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<script
+    src="/frontend/js/chatbot.js"
+    defer
+></script>
+
+</body>
+</html>

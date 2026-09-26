@@ -1,0 +1,408 @@
+{
+  "flow_key": "dental_reception",
+  "name": "Dental Reception",
+  "version": 1,
+  "status": "active",
+  "description": "Example flow: dental reception booking and lookup.",
+  "order_prefix": "APT",
+
+  "branding": {
+    "title": "Dental Surgeons",
+    "subtitle": "Online",
+    "avatar": "🦷",
+    "primary_color": "#0f766e",
+    "powered_by": "Dental Reception",
+    "placeholder": "Type your message..."
+  },
+
+  "navigation": {
+    "back_enabled": true,
+    "main_menu_enabled": true,
+    "main_menu_node": "MAIN_MENU"
+  },
+
+  "summary_fields": [
+    "service",
+    "dentist",
+    "patient_type",
+    "patient_name",
+    "patient_mobile",
+    "patient_email",
+    "appointment_date",
+    "appointment_time"
+  ],
+
+  "start_node": "MAIN_MENU",
+
+  "nodes": [
+    {
+      "key": "MAIN_MENU",
+      "type": "menu",
+      "message": "Welcome to Dental Surgeons. How can we help you today?",
+      "options": [
+        {
+          "key": "BOOK_APPOINTMENT",
+          "label": "Book an Appointment",
+          "next": "SELECT_SERVICE"
+        },
+        {
+          "key": "FIND_APPOINTMENT",
+          "label": "Find My Appointment",
+          "next": "APPOINTMENT_SEARCH_METHOD"
+        }
+      ]
+    },
+
+    {
+      "key": "SELECT_SERVICE",
+      "type": "menu",
+      "message": "Please select the dental service you would like to book.",
+      "input_key": "service",
+      "options": [
+        {
+          "key": "COSMETIC_DENTISTRY",
+          "label": "Cosmetic Dentistry / Smile Makeover",
+          "next": "SELECT_DENTIST"
+        },
+        {
+          "key": "ORTHODONTICS",
+          "label": "Braces & Invisalign",
+          "next": "SELECT_DENTIST"
+        },
+        {
+          "key": "DENTAL_IMPLANTS",
+          "label": "Dental Implants",
+          "next": "SELECT_DENTIST"
+        },
+        {
+          "key": "ROOT_CANAL",
+          "label": "Root Canal Treatment",
+          "next": "SELECT_DENTIST"
+        },
+        {
+          "key": "TOOTH_EXTRACTION",
+          "label": "Tooth / Wisdom Tooth Extraction",
+          "next": "SELECT_DENTIST"
+        },
+        {
+          "key": "DENTAL_CLEANING",
+          "label": "Scaling & Polishing",
+          "next": "SELECT_DENTIST"
+        },
+        {
+          "key": "CROWNS_BRIDGES",
+          "label": "Crowns & Bridges",
+          "next": "SELECT_DENTIST"
+        },
+        {
+          "key": "CHILDREN_DENTISTRY",
+          "label": "Children Dentistry",
+          "next": "SELECT_DENTIST"
+        },
+        {
+          "key": "OTHER",
+          "label": "Other Dental Concern",
+          "next": "SELECT_DENTIST"
+        }
+      ]
+    },
+
+    {
+      "key": "SELECT_DENTIST",
+      "type": "menu",
+      "message": "Please select your preferred dentist.",
+      "input_key": "dentist",
+      "options": [
+        {
+          "key": "DR_TEHSINA",
+          "label": "Dr Tehsina Rauf Malik",
+          "next": "PATIENT_TYPE"
+        },
+        {
+          "key": "DR_AMIN",
+          "label": "Dr Amin-ur-Rehman",
+          "next": "PATIENT_TYPE"
+        },
+        {
+          "key": "DR_SHAN",
+          "label": "Dr Shan Nafees",
+          "next": "PATIENT_TYPE"
+        },
+        {
+          "key": "DR_NASIRA",
+          "label": "Dr Nasira Adnan",
+          "next": "PATIENT_TYPE"
+        },
+        {
+          "key": "DR_FATIMA",
+          "label": "Dr Fatima Moeen",
+          "next": "PATIENT_TYPE"
+        },
+        {
+          "key": "DR_SANA",
+          "label": "Dr Sana Rana",
+          "next": "PATIENT_TYPE"
+        }
+      ]
+    },
+
+    {
+      "key": "PATIENT_TYPE",
+      "type": "menu",
+      "message": "Are you a new or existing patient?",
+      "input_key": "patient_type",
+      "options": [
+        {
+          "key": "NEW_PATIENT",
+          "label": "New Patient",
+          "next": "PATIENT_NAME"
+        },
+        {
+          "key": "EXISTING_PATIENT",
+          "label": "Existing Patient",
+          "next": "PATIENT_NAME"
+        }
+      ]
+    },
+
+    {
+      "key": "PATIENT_NAME",
+      "type": "input",
+      "message": "Please enter your full name.",
+      "input_key": "patient_name",
+      "validation_type": "name",
+      "next": "PATIENT_MOBILE",
+      "options": []
+    },
+
+    {
+      "key": "PATIENT_MOBILE",
+      "type": "phone",
+      "message": "Please enter your mobile number.",
+      "input_key": "patient_mobile",
+      "validation_type": "pakistan_mobile",
+      "next": "PATIENT_EMAIL",
+      "options": []
+    },
+
+    {
+      "key": "PATIENT_EMAIL",
+      "type": "email",
+      "message": "Please enter your email address.",
+      "input_key": "patient_email",
+      "validation_type": "email",
+      "next": "APPOINTMENT_DATE",
+      "options": []
+    },
+
+    {
+      "key": "APPOINTMENT_DATE",
+      "type": "date",
+      "message": "Please select your preferred appointment date.",
+      "input_key": "appointment_date",
+      "validation_type": "future_date",
+      "options_source": {
+        "provider": "available_dates",
+        "label_format": "%A, %d %B %Y"
+      },
+      "next": "APPOINTMENT_TIME",
+      "options": []
+    },
+
+    {
+      "key": "APPOINTMENT_TIME",
+      "type": "time",
+      "message": "Please select your preferred appointment time.",
+      "input_key": "appointment_slot_id",
+      "options_source": {
+        "provider": "available_slots",
+        "date_field": "appointment_date"
+      },
+      "next": "APPOINTMENT_CONFIRMATION",
+      "options": []
+    },
+
+    {
+      "key": "APPOINTMENT_CONFIRMATION",
+      "type": "confirmation",
+      "message": "Please review your appointment details and confirm that the information you provided is correct.\n\n{{summary}}",
+      "input_key": "appointment_confirmation",
+      "validation_type": "confirmation",
+      "next": "APPOINTMENT_SUBMIT",
+      "options": [
+        {
+          "key": "CONFIRM",
+          "label": "Confirm Appointment",
+          "next": "APPOINTMENT_SUBMIT"
+        },
+        {
+          "key": "EDIT",
+          "label": "Edit Details",
+          "next": "PATIENT_NAME"
+        }
+      ]
+    },
+
+    {
+      "key": "APPOINTMENT_SUBMIT",
+      "type": "action",
+      "message": "Thank you. Your appointment request has been received. Our team will contact you to confirm the appointment.",
+      "action": {
+        "handler": "create_order",
+        "order_prefix": "APT",
+        "item_type": "appointment",
+        "success_message": "Your appointment has been confirmed successfully.\n\nPatient: {{patient_name}}\nService: {{item_name}}\nDentist: {{provider_name}}\nDate: {{date_label}}\nTime: {{time_label}}\n\nBooking Reference: {{order_number}}",
+        "fields": {
+          "customer_name": "patient_name",
+          "customer_phone": "patient_mobile",
+          "customer_email": "patient_email",
+          "item_key": "service",
+          "item_node": "SELECT_SERVICE",
+          "provider_key": "dentist",
+          "provider_node": "SELECT_DENTIST",
+          "date_field": "appointment_date",
+          "slot_field": "appointment_time"
+        }
+      },
+      "next": "APPOINTMENT_END",
+      "options": []
+    },
+
+    {
+      "key": "APPOINTMENT_END",
+      "type": "end",
+      "message": "Your appointment request is complete. Thank you for choosing Rahman & Rahman Dental Surgeons.",
+      "options": []
+    },
+
+    {
+      "key": "APPOINTMENT_SEARCH_METHOD",
+      "type": "menu",
+      "message": "How would you like to find your appointment?",
+      "options": [
+        {
+          "key": "SEARCH_BY_PHONE",
+          "label": "Search by Phone",
+          "next": "APPOINTMENT_SEARCH_PHONE"
+        },
+        {
+          "key": "SEARCH_BY_EMAIL",
+          "label": "Search by Email",
+          "next": "APPOINTMENT_SEARCH_EMAIL"
+        },
+        {
+          "key": "SEARCH_BY_NAME",
+          "label": "Search by Name",
+          "next": "APPOINTMENT_SEARCH_NAME"
+        },
+        {
+          "key": "SEARCH_BY_BOOKING_REFERENCE",
+          "label": "Search by Booking Reference",
+          "next": "APPOINTMENT_SEARCH_BOOKING_REFERENCE"
+        }
+      ]
+    },
+
+    {
+      "key": "APPOINTMENT_SEARCH_PHONE",
+      "type": "phone",
+      "message": "Please enter the mobile number used for your appointment.",
+      "input_key": "appointment_search_phone",
+      "validation_type": "pakistan_mobile",
+      "on_input": {
+        "handler": "lookup_orders",
+        "by": "phone",
+        "results_node": "APPOINTMENT_SEARCH_RESULTS",
+        "empty_message": "I couldn't find an active appointment with those details.\n\nPlease check the information and try again."
+      },
+      "options": []
+    },
+
+    {
+      "key": "APPOINTMENT_SEARCH_EMAIL",
+      "type": "email",
+      "message": "Please enter the email address used for your appointment.",
+      "input_key": "appointment_search_email",
+      "validation_type": "email",
+      "on_input": {
+        "handler": "lookup_orders",
+        "by": "email",
+        "results_node": "APPOINTMENT_SEARCH_RESULTS",
+        "empty_message": "I couldn't find an active appointment with those details.\n\nPlease check the information and try again."
+      },
+      "options": []
+    },
+
+    {
+      "key": "APPOINTMENT_SEARCH_NAME",
+      "type": "input",
+      "message": "Please enter the patient name used for your appointment.",
+      "input_key": "appointment_search_name",
+      "validation_type": "name",
+      "on_input": {
+        "handler": "lookup_orders",
+        "by": "name",
+        "results_node": "APPOINTMENT_SEARCH_RESULTS",
+        "empty_message": "I couldn't find an active appointment with those details.\n\nPlease check the information and try again."
+      },
+      "options": []
+    },
+
+    {
+      "key": "APPOINTMENT_SEARCH_BOOKING_REFERENCE",
+      "type": "input",
+      "message": "Please enter your booking reference.",
+      "input_key": "appointment_search_booking_reference",
+      "on_input": {
+        "handler": "lookup_orders",
+        "by": "booking_reference",
+        "results_node": "APPOINTMENT_SEARCH_RESULTS",
+        "empty_message": "I couldn't find an active appointment with that booking reference.\n\nPlease check the reference and try again."
+      },
+      "options": []
+    },
+
+    {
+      "key": "APPOINTMENT_SEARCH_RESULTS",
+      "type": "menu",
+      "message": "I found your active appointments. Please select an appointment to view its details.",
+      "options_source": {
+        "provider": "lookup_results",
+        "id_prefix": "APPOINTMENT_",
+        "label_template": "{date} {start} - {end} | {service_name}"
+      },
+      "on_select": {
+        "handler": "show_order_details",
+        "details_node": "APPOINTMENT_DETAILS",
+        "id_prefix": "APPOINTMENT_",
+        "message_template": "Appointment Details\n\nPatient: {customer_name}\nService: {service_name}\nDentist: {provider_name}\nDate: {date_label}\nTime: {time_label}\nStatus: {status_label}",
+        "extra_options": [
+          {
+            "key_template": "APPOINTMENT_CANCEL:{order_id}",
+            "label": "Cancel Appointment"
+          }
+        ]
+      },
+      "options": []
+    },
+
+
+    {
+      "key": "APPOINTMENT_DETAILS",
+      "type": "menu",
+      "message": "Here are the details of your appointment.",
+      "options": [
+        {
+          "key": "APPOINTMENT_BACK_TO_RESULTS",
+          "label": "Back to Results",
+          "next": "APPOINTMENT_SEARCH_RESULTS"
+        },
+        {
+          "key": "__MAIN_MENU__",
+          "label": "Main Menu",
+          "next": "MAIN_MENU"
+        }
+      ]
+    }
+  ]
+}
