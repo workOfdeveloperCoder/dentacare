@@ -25,11 +25,15 @@ def create_order(engine, cur, session, node, config, values):
     provider_key_field = fields.get("provider_key")
     date_field = fields.get("date_field")
     slot_field = fields.get("slot_field")
+    
+    print("DEBUG slot_field:", repr(slot_field), flush=True)
 
     item_key = engine.value_of(values, item_key_field)
     provider_key = engine.value_of(values, provider_key_field) if provider_key_field else None
     date_value = engine.value_of(values, date_field) if date_field else None
     slot_id = engine.value_of(values, slot_field) if slot_field else None
+
+    print("DEBUG slot_id:", repr(slot_id), flush=True)
 
     required = {
         fields.get("customer_name", "customer_name"): customer_name,
