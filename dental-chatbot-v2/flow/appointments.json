@@ -2,7 +2,7 @@
   "service_key": "dental_reception",
   "appointments": [
     {
-      "date": "2026-09-20",
+      "date": "2026-09-28",
       "slots": [
         {
           "start_time": "09:00",
@@ -54,100 +54,6 @@
           "notes": null
         }
       ]
-    },
-    {
-      "date": "2026-09-21",
-      "slots": [
-        {
-          "start_time": "09:00",
-          "end_time": "09:30",
-          "capacity": 1,
-          "status": "available",
-          "notes": null
-        },
-        {
-          "start_time": "10:00",
-          "end_time": "10:30",
-          "capacity": 1,
-          "status": "available",
-          "notes": null
-        },
-        {
-          "start_time": "11:00",
-          "end_time": "11:30",
-          "capacity": 2,
-          "status": "available",
-          "notes": null
-        },
-        {
-          "start_time": "13:00",
-          "end_time": "13:30",
-          "capacity": 1,
-          "status": "available",
-          "notes": null
-        },
-        {
-          "start_time": "14:00",
-          "end_time": "14:30",
-          "capacity": 1,
-          "status": "available",
-          "notes": null
-        },
-        {
-          "start_time": "15:00",
-          "end_time": "15:30",
-          "capacity": 2,
-          "status": "available",
-          "notes": null
-        }
-      ]
-    },
-    {
-      "date": "2026-09-22",
-      "slots": [
-        {
-          "start_time": "09:00",
-          "end_time": "09:30",
-          "capacity": 1,
-          "status": "available",
-          "notes": null
-        },
-        {
-          "start_time": "10:00",
-          "end_time": "10:30",
-          "capacity": 1,
-          "status": "available",
-          "notes": null
-        },
-        {
-          "start_time": "11:30",
-          "end_time": "12:00",
-          "capacity": 2,
-          "status": "available",
-          "notes": null
-        },
-        {
-          "start_time": "14:00",
-          "end_time": "14:30",
-          "capacity": 1,
-          "status": "available",
-          "notes": null
-        },
-        {
-          "start_time": "15:00",
-          "end_time": "15:30",
-          "capacity": 1,
-          "status": "available",
-          "notes": null
-        },
-        {
-          "start_time": "16:00",
-          "end_time": "16:30",
-          "capacity": 1,
-          "status": "available",
-          "notes": null
-        }
-      ]
-    }
+    } 
   ]
 }
