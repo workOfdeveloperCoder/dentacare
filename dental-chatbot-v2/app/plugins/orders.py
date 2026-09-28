@@ -71,7 +71,12 @@ def create_order(engine, cur, session, node, config, values):
         ) or engine.label_of(values, provider_key_field) or provider_key
 
     parsed_date = engine.parse_date(date_value) if date_value else None
+    print("DEBUG slot_id:", repr(slot_id))
+    print("DEBUG parsed_date:", repr(parsed_date))
+
     slot = _reserve_slot(cur, slot_id, parsed_date) if slot_id else None
+
+    print("DEBUG reserved slot:", repr(slot))
 
     if slot:
         parsed_date = slot["appointment_date"]
