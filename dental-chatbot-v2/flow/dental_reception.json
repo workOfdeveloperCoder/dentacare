@@ -261,7 +261,7 @@
           "provider_key": "dentist",
           "provider_node": "SELECT_DENTIST",
           "date_field": "appointment_date",
-          "slot_field": "appointment_time"
+          "slot_field": "appointment_slot_id"
         }
       },
       "next": "APPOINTMENT_END",
