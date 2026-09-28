@@ -59,9 +59,9 @@ def main() -> None:
     print(f"Connected to {DB_CONFIG['dbname']} on {DB_CONFIG['host']}")
     print()
     print("Next:")
-    print("  python -m scripts/import_flow.py flow/dental_reception.json")
-    print("  python -m scripts/import_flow.py flow/oil_company.json")
-    print("  python -m scripts/import_appointments.py flow/appointments.json")
+    print("  python -m scripts.import_flow flow/dental_reception.json")
+    print("  python -m scripts.import_flow flow/oil_company.json")
+    print("  python -m scripts.import_appointments flow/appointments.json")
 
 
 if __name__ == "__main__":
